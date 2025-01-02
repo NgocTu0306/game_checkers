@@ -1,0 +1,7 @@
+Di chuyển: Quân cờ luôn di chuyển theo đường chéo về phía trước, mỗi lần di chuyển chỉ một ô.
+
+Ăn quân: Để ăn quân đối phương, quân cờ nhảy qua quân đối phương và rơi vào ô trống phía bên kia. Chỉ có thể ăn một quân trong mỗi lượt, nhưng có thể nhảy nhiều lần.
+
+Nâng cấp quân thành Vua: Khi quân cờ di chuyển đến hàng cuối, nó trở thành Vua. Quân Vua có thể di chuyển cả về phía trước và phía sau.
+
+Kết thúc ván chơi: Khi một trong hai người chơi hết quân hoặc hết thời gian, ván Checkers sẽ kết thúc. Trận đấu cũng có thể chấm dứt nếu một bên vẫn còn quân cờ nhưng bị chặn và không thể tiếp tục di chuyển.Người chiến thắng phải có quân đã được phong Vua. Do đó, trường hợp hòa là không thể xảy ra.
