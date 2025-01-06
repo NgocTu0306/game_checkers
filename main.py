@@ -59,20 +59,6 @@ def choose_game_mode():
 
     window.mainloop()
 
-def on_choose_mode(parent_window,window=None):
-    for widget in window.winfo_children():
-        widget.deiconify()
-
-    # Đảm bảo trò chơi được làm mới và quay lại trạng thái ban đầu
-    window.deiconify()  # Đóng cửa sổ hiện tại
-
-    # Nếu có cửa sổ cha (parent_window), hiển thị lại cửa sổ chính để người chơi chọn chế độ
-    if parent_window:
-        parent_window.destroy()  # Hiển thị lại cửa sổ chính
-
-    # Tạo lại giao diện chính cho việc chọn chế độ chơi
-    main()
-
 def choose_ai_difficulty(create_game_window):
     """Chọn mức độ chơi khi đấu với AI"""
     difficulty_window = tk.Toplevel()  # Tạo cửa sổ phụ

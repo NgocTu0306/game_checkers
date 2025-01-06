@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
-from .BanCo import*
-from .constants import THOI_GIAN_LUOT
+from checkers.BanCo import*
+from checkers.constants import THOI_GIAN_LUOT
 import math
 
 
@@ -170,7 +170,7 @@ class Game:
     
         else:
             # Nếu không phải là bước nhảy (chỉ di chuyển quân cờ đơn giản)
-            print(f"Di chuyển quân cờ từ ({current_row}, {current_col}) đến ({target_row}, {target_col})")
+            #print(f"Di chuyển quân cờ từ ({current_row}, {current_col}) đến ({target_row}, {target_col})")
         
             # Cập nhật bảng cờ: Di chuyển quân cờ
             self.board.set_piece(target_row, target_col, ai_piece)  # Đặt quân cờ tại vị trí mới
@@ -196,9 +196,7 @@ class Game:
         """Kiểm tra nếu nước đi là hợp lệ. Đảm bảo tọa độ nằm trong phạm vi bàn cờ. Cho phép ô đích trống hoặc có quân đối thủ."""
         if not isinstance(move, (tuple, list)) or len(move) != 2:
             return False
-
         row, col = move
-
         # Kiểm tra nếu tọa độ là số nguyên
         if not isinstance(row, int) or not isinstance(col, int):
             return False
@@ -216,7 +214,7 @@ class Game:
         elif target_piece.mau != self.turn:  # Quân đối thủ
             return True
         else:
-            print(f"Nước đi không hợp lệ: Vị trí ({row}, {col}) chứa quân cùng màu!")
+            #print(f"Nước đi không hợp lệ: Vị trí ({row}, {col}) chứa quân cùng màu!")
             return False
         
   
@@ -235,7 +233,6 @@ class Game:
 
             for ai_piece in ai_pieces:
                 piece_moves = self.getValidMoves(ai_piece)
-                print(f"Các ô hợp lệ mà quân {ai_piece} tại {ai_piece.position} có thể di chuyển đến: {piece_moves}")
                 valid_moves.extend(piece_moves)  # Thêm các nước đi hợp lệ của quân cờ vào danh sách
 
             # Nếu không có nước đi hợp lệ, thông báo và dừng
@@ -264,7 +261,7 @@ class Game:
                     break  # Dừng lại khi tìm thấy quân cờ có thể di chuyển đến best_move
 
             if ai_piece_to_move is not None:
-                print(f"Quân cờ {ai_piece_to_move} sẽ di chuyển đến {best_move}")
+                print(f"{ai_piece_to_move} sẽ di chuyển đến {best_move}")
                 self.makeMove(ai_piece_to_move, best_move)# Thực hiện di chuyển
             else:
                 print("Không có quân cờ để di chuyển!")
@@ -616,39 +613,39 @@ class Game:
             print(f"Invalid move format: {move}")
             return 0  # Trả về điểm 0 nếu move không hợp lệ
 
-    def is_vulnerable(self, row, col):
-        """Kiểm tra nếu quân cờ tại vị trí này dễ bị quân đối phương ăn."""
-        opponent_pieces = [piece for row in self.board.banCo for piece in row if piece is not None and piece.mau != self.turn]
+    # def is_vulnerable(self, row, col):
+    #     """Kiểm tra nếu quân cờ tại vị trí này dễ bị quân đối phương ăn."""
+    #     opponent_pieces = [piece for row in self.board.banCo for piece in row if piece is not None and piece.mau != self.turn]
         
-        for opponent_piece in opponent_pieces:
-            valid_moves = self.getValidMoves(opponent_piece)  # Lấy tất cả các nước đi hợp lệ của quân đối phương
-            for move in valid_moves:
-                if move == (row, col):  # Nếu quân đối phương có thể di chuyển đến vị trí này
-                    return True
-        return False
+    #     for opponent_piece in opponent_pieces:
+    #         valid_moves = self.getValidMoves(opponent_piece)  # Lấy tất cả các nước đi hợp lệ của quân đối phương
+    #         for move in valid_moves:
+    #             if move == (row, col):  # Nếu quân đối phương có thể di chuyển đến vị trí này
+    #                 return True
+    #     return False
 
 
-    def evaluatePiece(self, piece):
-        """Đánh giá giá trị của một quân cờ."""
-        if isinstance(piece, QuanCo):
-            if piece.mau == MAU_TRANG:  # Quân cờ của AI
-                return 10  # Giá trị của quân cờ AI
-            else:
-                return -10  # Giá trị của quân cờ đối thủ (trừ điểm khi đối thủ có quân)
-        return 0
+    # def evaluatePiece(self, piece):
+    #     """Đánh giá giá trị của một quân cờ."""
+    #     if isinstance(piece, QuanCo):
+    #         if piece.mau == MAU_TRANG:  # Quân cờ của AI
+    #             return 10  # Giá trị của quân cờ AI
+    #         else:
+    #             return -10  # Giá trị của quân cờ đối thủ (trừ điểm khi đối thủ có quân)
+    #     return 0
      
     
-    def evaluate_board(self):
-        """Đánh giá bàn cờ (hàm đánh giá)"""
-        score = 0
-        for row in self.board.banCo:
-            for piece in row:
-                if piece is not None:
-                    if piece.mau == MAU_TRANG:
-                        score += 1
-                    else:
-                        score -= 1
-        return score
+    # def evaluate_board(self):
+    #     """Đánh giá bàn cờ (hàm đánh giá)"""
+    #     score = 0
+    #     for row in self.board.banCo:
+    #         for piece in row:
+    #             if piece is not None:
+    #                 if piece.mau == MAU_TRANG:
+    #                     score += 1
+    #                 else:
+    #                     score -= 1
+    #     return score
 
     def getWalkMoves(self, piece):
         if piece is None:  # Đảm bảo piece không phải là None
@@ -707,7 +704,7 @@ class Game:
             validMoves.update(jumpMoves)
     
         # Hiển thị các ô hợp lệ cho quân cờ được chọn
-        print(f"Các ô hợp lệ mà quân {piece.mau} tại ({piece.hang}, {piece.cot}) có thể di chuyển đến: {validMoves}")
+        print(f"Các ô hợp lệ mà {piece.mau} tại ({piece.hang}, {piece.cot}) có thể di chuyển đến: {validMoves}")
         return validMoves
 
 
@@ -732,15 +729,6 @@ class Game:
         elif piece.mau == MAU_DEN and piece.hang == 0:
             piece.taoVua()  # Phong quân đen thành vua
     
-    def drawArrow(self, startRow, startCol, endRow, endCol):
-        """Vẽ mũi tên chỉ ra hướng di chuyển của quân cờ."""
-        startX = startCol * KICH_THUOC_O + KICH_THUOC_O / 2
-        startY = startRow * KICH_THUOC_O + KICH_THUOC_O / 2
-        endX = endCol * KICH_THUOC_O + KICH_THUOC_O / 2
-        endY = endRow * KICH_THUOC_O + KICH_THUOC_O / 2
-        
-        # Vẽ một mũi tên từ điểm bắt đầu đến điểm kết thúc
-        self.canvas.create_line(startX, startY, endX, endY, arrow=tk.LAST, width=2, fill="green")  # Mũi tên màu xanh
  
     def stop_timer(self):
         """Hủy tất cả các callback đang chạy của đồng hồ đếm ngược."""
@@ -794,7 +782,7 @@ class Game:
             # Kiểm tra xem ô trung gian có quân đối phương không
             eaten_piece = self.board.banCo[rowEatenPiece][colEatenPiece]
             if eaten_piece is not None and eaten_piece.mau != piece.mau:
-                print(f"Piece at ({rowEatenPiece}, {colEatenPiece}) eaten: {eaten_piece}")
+                print(f"Quân tại ({rowEatenPiece}, {colEatenPiece}) ăn: {eaten_piece}")
                 # Xóa quân bị ăn
                 self.board.banCo[rowEatenPiece][colEatenPiece] = None
                 self.update_score()
@@ -850,14 +838,13 @@ class Game:
                                 # Cập nhật phong vua chỉ sau lần ăn thứ hai và nếu quân cờ ở vị trí cuối của bàn cờ
                                 if eaten_count == 1:
                                     if (piece.mau == 'white' and new_row == 7) or (piece.mau == 'black' and new_row == 0):
-                                        print(f"King promotion for {piece.mau} piece at position ({new_row}, {new_col})")
+                                        #print(f"King promotion for {piece.mau} piece at position ({new_row}, {new_col})")
                                         self.phongVua(piece)
                                 break
     
             # Nếu không thể ăn tiếp, kết thúc
             if not can_eat_more:
                 moved = False  # Dừng vòng lặp khi không thể ăn thêm
-    
         return True
 
 
@@ -913,21 +900,6 @@ class Game:
     
         # Vẽ viền xung quanh ô
         self.canvas.create_rectangle(x1, y1, x2, y2, outline=color, width=width)
-
-    def evaluateBoard_1(self):
-        """Đánh giá tổng điểm của quân trắng và quân đen trên bàn cờ."""
-        score_trang = 0
-        score_den = 0
-
-        for row in self.board.banCo:
-            for piece in row:
-                if isinstance(piece, QuanCo):
-                    if piece.mau == MAU_TRANG:
-                        score_trang += 1  # Quân trắng có 1 điểm
-                    elif piece.mau == MAU_DEN:
-                        score_den += 1  # Quân đen có 1 điểm
-
-        return score_trang, score_den
 
     def drawScore(self, canvas, score_trang, score_den):
             """Vẽ điểm của quân trắng và quân đen trên bàn cờ."""

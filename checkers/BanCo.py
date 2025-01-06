@@ -1,5 +1,5 @@
 from .QuanCo import*
-from .constants import MAU_SANG_BAN_CO, MAU_TOI_BAN_CO, MAU_DEN
+from .constants import MAU_SANG_BAN_CO, MAU_TOI_BAN_CO, SO_HANG, SO_COT
 
 class BanCo:
     def __init__(self, game):

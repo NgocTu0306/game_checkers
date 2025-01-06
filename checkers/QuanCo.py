@@ -1,4 +1,4 @@
-from checkers.constants import KICH_THUOC_O, MAU_TRANG, SO_HANG, SO_COT
+from checkers.constants import KICH_THUOC_O, MAU_TRANG, MAU_DEN
 
 class QuanCo:
     def __init__(self, hang, cot, mau):
@@ -33,18 +33,6 @@ class QuanCo:
     def position(self):
         """Thuộc tính trả về vị trí của quân cờ."""
         return (self.hang, self.cot)
-    def getValidMoves(self):
-        """Tính các nước đi hợp lệ của quân cờ"""
-        moves = [] #Khởi tạo danh sách để lưu các nước đi hợp lệ
-        directions = [(-1, -1), (-1, 1)] if self.mau == MAU_TRANG else [(1, -1), (1, 1)]
-        # Lặp qua tất cả các hướng di chuyển
-        for d in directions:
-            new_row = self.hang + d[0] #Tính vị trí mới của quân cờ thay đổi về hàng
-            new_col = self.cot + d[1] #Tính vị trí mới của quân cờ thay đổi về cột
-            # Kiểm tra vị trí mới có nằm trong phạm vi bàn cờ hay không
-            if 0 <= new_row < SO_HANG and 0 <= new_col < SO_COT:
-                moves.append((new_row, new_col))
-        return moves
     
     def is_regular_piece(self):
             """
