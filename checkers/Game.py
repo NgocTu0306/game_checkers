@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 import math
+import sys
+sys.path.append('checkers')
 from BanCo import *
 
 class Game:
