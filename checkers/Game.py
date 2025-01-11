@@ -1,9 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
-from checkers.BanCo import*
-from checkers.constants import THOI_GIAN_LUOT
 import math
-
+from BanCo import *
 
 class Game:
     def __init__(self, window, ai_mode=False, depth=1):
@@ -613,40 +611,6 @@ class Game:
             print(f"Invalid move format: {move}")
             return 0  # Trả về điểm 0 nếu move không hợp lệ
 
-    # def is_vulnerable(self, row, col):
-    #     """Kiểm tra nếu quân cờ tại vị trí này dễ bị quân đối phương ăn."""
-    #     opponent_pieces = [piece for row in self.board.banCo for piece in row if piece is not None and piece.mau != self.turn]
-        
-    #     for opponent_piece in opponent_pieces:
-    #         valid_moves = self.getValidMoves(opponent_piece)  # Lấy tất cả các nước đi hợp lệ của quân đối phương
-    #         for move in valid_moves:
-    #             if move == (row, col):  # Nếu quân đối phương có thể di chuyển đến vị trí này
-    #                 return True
-    #     return False
-
-
-    # def evaluatePiece(self, piece):
-    #     """Đánh giá giá trị của một quân cờ."""
-    #     if isinstance(piece, QuanCo):
-    #         if piece.mau == MAU_TRANG:  # Quân cờ của AI
-    #             return 10  # Giá trị của quân cờ AI
-    #         else:
-    #             return -10  # Giá trị của quân cờ đối thủ (trừ điểm khi đối thủ có quân)
-    #     return 0
-     
-    
-    # def evaluate_board(self):
-    #     """Đánh giá bàn cờ (hàm đánh giá)"""
-    #     score = 0
-    #     for row in self.board.banCo:
-    #         for piece in row:
-    #             if piece is not None:
-    #                 if piece.mau == MAU_TRANG:
-    #                     score += 1
-    #                 else:
-    #                     score -= 1
-    #     return score
-
     def getWalkMoves(self, piece):
         if piece is None:  # Đảm bảo piece không phải là None
             return []
@@ -967,6 +931,17 @@ class Game:
         tk.Button(result_window, text="Thoát", command=result_window.destroy,
                   font=("Arial", 14), bg="#FF4500", fg="white").pack(pady=10)
 
-if __name__ == "__main__":
-    game = Game()
+def create_game_window(ai_mode=False, depth=1):
+    """Khởi tạo giao diện trò chơi"""
+    window = tk.Tk()
+    window.title("Cờ Đam")
+    window.geometry("600x600")
+    
+    tk.Label(window, text="Chơi Cờ Đam", font=("Helvetica", 20, "bold"), bg="#EDEDED").pack(pady=20)
+    # Khởi tạo trò chơi
+    game = Game(window, ai_mode,depth)
     game.start_game()
+    window.mainloop()
+
+if __name__ == "__main__":
+    create_game_window()

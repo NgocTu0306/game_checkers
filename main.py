@@ -3,8 +3,8 @@ from checkers.rule  import show_rules_window
 from PIL import Image, ImageTk
 from playsound import playsound
 from threading import Thread
-from checkers.Game import Game
-from checkers.constants import MAU_TRANG
+from checkers.Game import Game, MAU_TRANG
+
 
 
 def choose_game_mode():

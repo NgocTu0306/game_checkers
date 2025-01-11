@@ -1,6 +1,63 @@
-from .QuanCo import*
-from .constants import MAU_SANG_BAN_CO, MAU_TOI_BAN_CO, SO_HANG, SO_COT
+import tkinter as tk
+# Các hằng số
+MAU_TRANG = "white"
+MAU_DEN = "black"
+SO_HANG = 8
+SO_COT = 8
+KICH_THUOC_O = 60
+# Initial values of Alpha and Beta
+MAX, MIN = 1000, -1000
+# Màu sắc
+MAU_SANG_BAN_CO = "wheat" # Màu sáng mới
+MAU_TOI_BAN_CO = "saddlebrown"  # Màu tối mới
 
+# Thời gian giới hạn cho mỗi người chơi (giây)
+THOI_GIAN_LUOT = 60  # 60 giây cho mỗi lượt
+class QuanCo:
+    def __init__(self, hang, cot, mau):
+        self.hang = hang
+        self.cot = cot
+        self.mau = mau
+        self.vua = False
+        if self.mau == MAU_TRANG:
+            self.huong = [(1, -1), (1, 1)]  # Quân trắng đi xuống (di chuyển theo đường chéo)
+        else:
+            self.huong = [(-1, -1), (-1, 1)]  # Quân đen đi lên (di chuyển theo đường chéo)
+
+    def taoVua(self):
+        self.vua = True
+        self.huong = [(-1, -1), (-1, 1), (1, -1), (1, 1)]  # Vua có thể đi cả 4 hướng
+
+    def layViTri(self):
+        return (self.cot * KICH_THUOC_O + KICH_THUOC_O // 2, self.hang * KICH_THUOC_O + KICH_THUOC_O // 2)
+
+    def veQuanCo(self, canvas):
+        xTrungTam, yTrungTam = self.layViTri()
+        banKinhQuanCo = KICH_THUOC_O // 3 # Quân cờ có bán kính =1/3 KICH_THUOC_O
+        if self.vua:
+            canvas.create_oval(xTrungTam - banKinhQuanCo, yTrungTam - banKinhQuanCo,
+                               xTrungTam + banKinhQuanCo, yTrungTam + banKinhQuanCo,
+                               fill=self.mau, outline="yellow", width=3)  # Highlight quân vua với viền vàng
+        else:
+            canvas.create_oval(xTrungTam - banKinhQuanCo, yTrungTam - banKinhQuanCo,
+                               xTrungTam + banKinhQuanCo, yTrungTam + banKinhQuanCo,
+                               fill=self.mau)
+
+    def position(self):
+        """Thuộc tính trả về vị trí của quân cờ."""
+        return (self.hang, self.cot)
+    
+    def is_regular_piece(self):
+            """
+            Kiểm tra xem quân cờ có phải là quân cờ thường không.
+            Quân cờ thường là quân cờ chưa thăng chức thành vua.
+            """
+            return not self.taoVua()
+    
+    #Lấy thông tin quân cờ đưới dạng chuỗi
+    def __repr__(self):
+        return f"Quân ({self.hang}, {self.cot}, {self.mau})"
+    
 class BanCo:
     def __init__(self, game):
         self.banCo = [] #Danh sách 2 chiều lưu trữ trạng thái của các ô trên bàn cờ
@@ -82,5 +139,27 @@ class BanCo:
         if not quan_den:
             return MAU_TRANG  # Quân trắng thắng
         return None  # Ván chơi chưa kết thúc
-   
+
+class Game:
+    def __init__(self):
+        # Khởi tạo bất kỳ dữ liệu nào cho game ở đây
+        self.state = "game_running"
+
+
+if __name__ == "__main__":
+    # Tạo đối tượng game
+    game = Game()
+    # Khởi tạo bàn cờ với đối tượng game
+    ban_co = BanCo(game)
+    # Khởi tạo cửa sổ Tkinter
+    root = tk.Tk()
+    root.title("Game Cờ Dame")
+    # Tạo Canvas để vẽ bàn cờ
+    canvas = tk.Canvas(root, width=SO_COT * KICH_THUOC_O, height=SO_HANG * KICH_THUOC_O)
+    canvas.pack()
+    # Vẽ bàn cờ
+    ban_co.veBanCo(canvas)
+    # Chạy vòng lặp sự kiện Tkinter
+    root.mainloop()
+
 
