@@ -891,10 +891,6 @@ class Game:
         else:
             score_trang, score_den = result  # Chỉ có 2 phần, điểm quân trắng và quân đen
             best_move = None  # Nếu không có nước đi tốt nhất, gán best_move là None
-
-        # Vẽ điểm tổng của quân trắng và quân đen trên bàn cờ
-        """self.drawScore(self.canvas, score_trang, score_den)"""
-
         # Hiển thị các ô hợp lệ (nếu có) và quân cờ được chọn
         if self.selected:
             self.highlightCell(self.selected[0], self.selected[1], color="blue")  # Ô được chọn
