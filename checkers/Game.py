@@ -933,7 +933,7 @@ class Game:
         tk.Button(result_window, text="Thoát", command=result_window.destroy,
                   font=("Arial", 14), bg="#FF4500", fg="white").pack(pady=10)
 
-def create_game_window(ai_mode=False, depth=1):
+def main(ai_mode=False, depth=1):
     """Khởi tạo giao diện trò chơi"""
     window = tk.Tk()
     window.title("Cờ Đam")
@@ -946,4 +946,4 @@ def create_game_window(ai_mode=False, depth=1):
     window.mainloop()
 
 if __name__ == "__main__":
-    create_game_window()
+    main()
