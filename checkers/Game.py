@@ -805,16 +805,6 @@ class Game:
         # Vẽ viền xung quanh ô
         self.canvas.create_rectangle(x1, y1, x2, y2, outline=color, width=width)
 
-    def drawScore(self, canvas, score_trang, score_den):
-            """Vẽ điểm của quân trắng và quân đen trên bàn cờ."""
-            # Khoảng cách giữa điểm và bàn cờ
-            padding = 30  # Khoảng cách để điểm không bị dính vào bàn cờ
-    
-            # Vẽ điểm của quân trắng ở góc trên trái
-            canvas.create_text(50, padding, text=f"Quân trắng: {score_trang}", font=("Helvetica", 14), fill="black")
-    
-            # Vẽ điểm của quân đen ở góc trên phải
-            canvas.create_text(SO_COT * KICH_THUOC_O - 50, padding, text=f"Quân đen: {score_den}", font=("Helvetica", 14), fill="black")
 
     def updateBoardWithHighlights(self):
         """Cập nhật và làm mới bàn cờ, bao gồm các đường đi và điểm của quân cờ."""
