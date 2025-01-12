@@ -337,68 +337,6 @@ class Game:
                     break  # Cắt tỉa (pruning)
 
             return best_move
-
-
-    def getCaptureMoves(self, ai_piece):
-        """Tìm các nước đi mà quân cờ ai_piece có thể ăn quân đối thủ."""
-        capture_moves = []
-        directions = [(-2, -2), (-2, 2), (2, -2), (2, 2)]  # Các hướng có thể ăn quân đối thủ (di chuyển 2 ô theo chiều chéo)
-    
-        for dx, dy in directions:
-            new_row = ai_piece.hang + dx
-            new_col = ai_piece.cot + dy
-            mid_row = ai_piece.hang + dx // 2  # Ô giữa (quân đối thủ bị ăn)
-            mid_col = ai_piece.cot + dy // 2
-        
-            # Kiểm tra nếu vị trí di chuyển hợp lệ
-            if 0 <= new_row < 8 and 0 <= new_col < 8:
-                # Kiểm tra nếu quân đối thủ ở ô giữa và ô đích trống
-                if self.board.banCo[mid_row][mid_col] is not None and self.board.banCo[mid_row][mid_col].mau != ai_piece.mau:
-                    if self.board.banCo[new_row][new_col] is None:
-                        capture_moves.append((ai_piece, (new_row, new_col)))  # Thêm nước đi ăn quân đối thủ vào danh sách
-        return capture_moves
-    
-
-    def getMoveCloserToOpponent(self, ai_piece):
-        """Tìm các nước đi mà quân phong vua có thể tiến lại gần quân đối thủ."""
-        move_closer_moves = []
-        directions = [(-1, -1), (-1, 1), (1, -1), (1, 1)]  # Các hướng di chuyển chéo (lên trái, lên phải, xuống trái, xuống phải)
-
-        for dx, dy in directions:
-            new_row = ai_piece.hang + dx
-            new_col = ai_piece.cot + dy
-        
-            # Kiểm tra nếu vị trí di chuyển hợp lệ và ô đó trống
-            if 0 <= new_row < 8 and 0 <= new_col < 8 and self.board.banCo[new_row][new_col] is None:
-                move_closer_moves.append((ai_piece, (new_row, new_col)))  # Thêm nước đi di chuyển tiến lại gần đối thủ vào danh sách
-
-        return move_closer_moves
-
-    
-    def getKingMoves(self, ai_piece):
-        """Lấy tất cả các nước đi hợp lệ cho quân phong vua."""
-        king_moves = []
-        # Giả sử quân phong vua có thể di chuyển bất kỳ nơi nào trong các ô chéo
-        directions = [(-1, -1), (-1, 1), (1, -1), (1, 1)]  # Di chuyển theo các hướng chéo
-    
-        for direction in directions:
-            row, col = ai_piece.hang, ai_piece.cot
-            while True:
-                row += direction[0]
-                col += direction[1]
-                if 0 <= row < 8 and 0 <= col < 8:  # Kiểm tra nếu vị trí trong bàn cờ
-                    target_piece = self.board.get_piece(row, col)
-                    if target_piece is None:  # Vị trí trống
-                        king_moves.append((row, col))
-                    elif target_piece.mau != ai_piece.mau:  # Nếu là quân đối thủ
-                        king_moves.append((row, col))  # Có thể ăn quân đối thủ
-                        break  # Dừng lại khi ăn quân đối phương
-                    else:
-                        break  # Nếu gặp quân của mình, dừng lại
-                else:
-                    break  # Ra ngoài bàn cờ, dừng lại
-    
-        return king_moves
     
 
     def evaluateBoard(self):
