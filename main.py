@@ -3,7 +3,7 @@ from checkers.rule  import show_rules_window
 from PIL import Image, ImageTk
 from playsound import playsound
 from threading import Thread
-from checkers.Game import Game, MAU_TRANG
+from checkers.Game import Game
 
 
 
@@ -140,21 +140,6 @@ def create_game_window(ai_mode=False, depth=1):
         game.ai_move()  # AI thực hiện nước đi đầu tiên nếu cần
 
     window.mainloop()
-def show_winner(self, winner):
-    result_window = tk.Toplevel(self.window)
-    result_window.title("Kết quả trận đấu")
-    result_window.geometry("300x200")
-    result_window.config(bg="#D3D3D3")
-    if winner == MAU_TRANG:
-        winner_text = "Quân trắng thắng!"
-    else:
-        winner_text = "Quân đen thắng!"
-
-        tk.Label(result_window, text=winner_text, font=("Arial", 16, "bold"),
-                 fg="green", bg="#D3D3D3").pack(pady=20)
-        
-        tk.Button(result_window, text="Thoát", command=result_window.destroy,
-                  font=("Arial", 14), bg="#FF4500", fg="white").pack(pady=10)
 
 def reset_game(window, parent_window=None):
     """Hàm reset trò chơi, quay lại giao diện chính."""
