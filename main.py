@@ -39,14 +39,6 @@ def choose_game_mode():
         window.destroy()  # Đóng cửa sổ chọn chế độ
         choose_ai_difficulty(create_game_window)  # Mở giao diện chọn mức độ khó
 
-
-    # Hàm hiệu ứng hover cho nút
-    def on_enter(event, button, color):
-        button.config(bg=color)
-
-    def on_leave(event, button, color):
-        button.config(bg=color)
-
     # Nút chọn chế độ chơi Người chơi vs Người chơi
     easy_button = tk.Button(window, text="Người chơi vs Người chơi", font=("Helvetica", 14, "bold"), bg="#4CAF50", fg="white", width=20, height=2,
                             command=start_player_vs_player)
