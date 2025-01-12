@@ -517,14 +517,12 @@ class Game:
             if isinstance(start, tuple) and len(start) == 2:
                 start_row, start_col = start  # start phải là tuple (row, col)
             else:
-                print(f"Invalid start value: {start}")
                 return 0  # Trả về điểm 0 nếu start không hợp lệ
 
             # Kiểm tra end là tuple (row, col)
             if isinstance(end, tuple) and len(end) == 2:
                 end_row, end_col = end  # end phải là tuple (row, col)
             else:
-                print(f"Invalid end value: {end}")
                 return 0  # Trả về điểm 0 nếu end không hợp lệ
 
             piece = self.board.banCo[start_row][start_col]
@@ -548,7 +546,6 @@ class Game:
 
             return score
         else:
-            print(f"Invalid move format: {move}")
             return 0  # Trả về điểm 0 nếu move không hợp lệ
 
     def getWalkMoves(self, piece):
